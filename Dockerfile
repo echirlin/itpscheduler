@@ -1,6 +1,6 @@
 FROM python:3.7
 
-RUN pip install Flask Flask-SQLAlchemy Flask-Login Flask-Bcrypt
+RUN pip install Flask Flask-SQLAlchemy Flask-Login Flask-Bcrypt Flask-WTF
 
 RUN mkdir /app
 RUN mkdir /app/itpscheduler

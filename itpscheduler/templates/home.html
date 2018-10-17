@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="member-list-container">
+	<ul class="member-list">
+		{% for member in members %}
+			{% if member.is_instructor %}
+			<li class="member-list-item" style="color:#{{member.print_color}};">{{ member.name }} (instructor)</li>
+			{% else %}
+			<li class="member-list-item" style="color:#{{member.print_color}};">{{ member.name }}</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+<div class="date-picker-container">
+	<p>Select a range of dates to view Saturdays: <input type="text" id="datepicker-from"> - <input type="text" id="datepicker-to"></p>
+</div>
+{% endblock content %}

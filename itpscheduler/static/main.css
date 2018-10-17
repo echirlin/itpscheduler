@@ -1,0 +1,12 @@
+html, body {
+	font-size: 10px;
+}
+body {
+	background: #bbbbbb;
+}
+.site-header {
+	text-align: center;
+}
+.member-list-item {
+	list-style: none;
+}
