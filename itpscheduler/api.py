@@ -12,4 +12,4 @@ def members():
 @bp.route('/members/<member_id>', methods=['GET', 'PUT'])
 def member(member_id):
     member = Member.query.filter_by(id=member_id).first()
-    return jsonify({})
+    return jsonify(member.serialize(True))

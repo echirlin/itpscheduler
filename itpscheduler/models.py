@@ -12,6 +12,18 @@ class Member(db.Model):
         instructor = " - instructor" if self.is_instructor else ""
         return f'<Member: {self.name}{instructor}>'
 
+    def serialize(self, deep=False):
+        json = {
+            'id': self.id,
+            'name': self.name,
+            'is_instructor': self.is_instructor
+        }
+
+        if deep:
+            json['events'] = [a.serialize(self) for a in self.events]
+
+        return json
+
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -21,7 +33,20 @@ class Event(db.Model):
     members = db.relationship('Assignment', back_populates='event')
 
     def __repr__(self):
-        return f'<Event: {self.date}>'
+        return f'<Event: {datetime.strftime(self.date, "%b %d, %Y")}>'
+
+    def serialize(self, deep=False):
+        json = {
+            'id': self.id,
+            'notes': self.notes,
+            'date': self.date.timestamp(),
+            'is_school_open': self.is_school_open
+        }
+
+        if deep:
+            json['members'] = [m.serialize(self) for m in self.members]
+
+        return json
 
 
 class Assignment(db.Model):
@@ -34,3 +59,15 @@ class Assignment(db.Model):
 
     def __repr__(self):
         return f'<Assignment: {self.member.name} on {self.event.date}>'
+
+    def serialize(self, cls):
+        json = {
+            'is_lead_instructor': self.is_lead_instructor
+        }
+        
+        if type(cls).__name__ == 'Member':
+            json['event'] = self.event.serialize()
+        elif type(cls).__name__ == 'Event':
+            json['member'] = self.member.serialize()
+        
+        return json

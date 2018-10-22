@@ -2,11 +2,18 @@ html, body {
 	font-size: 10px;
 }
 body {
-	background: #bbbbbb;
+	background: #dddddd;
+}
+.main-container {
+	background: #444444;
 }
 .site-header {
 	text-align: center;
 }
+
+.member-list-container {
+	margin: 28px;
+}
 .member-list-item {
-	list-style: none;
+	margin-bottom: 8px;
 }
